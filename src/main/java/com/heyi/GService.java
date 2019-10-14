@@ -16,7 +16,7 @@ import java.util.*;
 import static com.heyi.GUtils.*;
 
 /**
- * Created by macwork on 2018/3/5.
+ * Created by codefactory on 2018/3/5.
  */
 public class GService {
 
