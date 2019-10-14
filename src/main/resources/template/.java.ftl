@@ -1,31 +1,17 @@
-package ${basePackage};
+package  ${basePackage};
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Date;
-import com.heyi.jinbeijie.commonbase.BaseModel;
-import java.math.BigDecimal;
+
 /**
-*
+* ${table.tableComment}
 *
 * @author ${table.author}
 * @date  ${table.createTime}
 */
-public class ${table.tableNameUpperCamel} extends BaseModel {
+@ApiModel(description = "${table.tableComment}")
+@Data
+public class ${table.tableNameUpperCamel}  {
 <#list colums as colum>
-    //${colum.columComment}
-    private ${colum.javaType} ${colum.columNameLowerCamel};
+        @ApiModelProperty(value = "${colum.columComment}", name = "${colum.columNameLowerCamel}", example = "")
+        private ${colum.javaType} ${colum.columNameLowerCamel};
 </#list>
-<#list colums as colum>
-
-    public ${colum.javaType} get${colum.columNameUpperCamel}() {
-    return ${colum.columNameLowerCamel};
-    }
-
-    public void set${colum.columNameUpperCamel}(${colum.javaType} ${colum.columNameLowerCamel}) {
-    this.${colum.columNameLowerCamel} = ${colum.columNameLowerCamel};
-    }
-</#list>
-
 }
