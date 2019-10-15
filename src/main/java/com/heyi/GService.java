@@ -83,7 +83,11 @@ public class GService {
 
     //3获取表xx
     private void getcoluminfo(String tableName) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch (ClassNotFoundException e){
+            Class.forName("com.mysql.jdbc.Driver");
+        }
         Properties props = new Properties();
         props.put("remarksReporting", "true");
         props.put("user", JDBC_USERNAME);
