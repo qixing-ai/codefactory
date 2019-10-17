@@ -1,14 +1,14 @@
 # codefactory
 根据数据库表自动生成代码，需要自己定义模板
-#generator 
+# generator 
 运行生成代码,根据resource下template模板生成,创建了几份文件 生成几份代码
-#template 
+# template 
 存放代码模板 
 命名规则为后缀 以user为例 model模板为 .java.ftl  生成出的文件为 User.java 
                     controller模板为 Controller.java.ftl 生成出的文件为 UserController.java
-#generatorConfig.properties
+# generatorConfig.properties
 数据库连接信息与配置
-#模板规范
+# 模板规范
 书写模板时按照freemarker的书写规范书写即可 
 引入数据库的表信息 例:表的注释(${table.tableComment})
 数据库的全部表信息:
