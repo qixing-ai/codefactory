@@ -1,8 +1,8 @@
 # codefactory
 根据数据库表自动生成代码，需要自己定义模板
-#generator 
+# generator 
 运行生成代码,根据resource下template模板生成,创建了几份文件 生成几份代码
-#template 
+# template 
 存放代码模板 
 命名规则为后缀 以user为例 model模板为 .java.ftl  生成出的文件为 User.java 
                     controller模板为 Controller.java.ftl 生成出的文件为 UserController.java
