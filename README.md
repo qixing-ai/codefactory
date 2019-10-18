@@ -1,5 +1,5 @@
-## 使用规范
-# 第一步:引入pom依赖
+# 使用规范
+## 第一步:引入pom依赖
     <dependency>
          <groupId>com.github.heyi-core</groupId>
          <artifactId>generator</artifactId>
@@ -7,7 +7,7 @@
          <scope>test</scope>
     </dependency>
     scope方式为test,代码不会被打包进去
-# 第二步:创建文件与目录
+## 第二步:创建文件与目录
     所有文件皆在项目的test目录下
     1.启动文件 
         随意命名 执行下main方法即可
@@ -18,7 +18,7 @@
     2.配置文件
         必须以generatorConfig.properties命名,将文件生成到resource下
     3.在resource目录下生成文件夹,随意命名,用于存放生成所属的ftl模板
-# 第三步创建配置文件
+## 第三步创建配置文件
     1. 数据库连接
         1.数据库连接
             jdbc.url=jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=UTF-8&useSSL=false
@@ -36,15 +36,15 @@
          author=zhang
     5.模板存放文件夹名称
          template.file=template (你创建的文件夹叫什么名字就填写什么名字)                     
-# 第四步:书写生成代码模板 
+## 第四步:书写生成代码模板 
    存放代码模板 
     命名规则为后缀 以user为例 model模板为 .java.ftl  生成出的文件为 User.java 
                     controller模板为 Controller.java.ftl 生成出的文件为 UserController.java
-# 第五步:运行生成 
+## 第五步:运行生成 
      运行生成代码,根据resource下template模板生成,创建了几份文件 生成几份代码
      生成的model,controller,service,dao的文件在一个文件夹内
      生成的mapper文件在resource/mappers文件夹下
-# 使用参数详解
+## 使用参数详解
     书写模板时按照freemarker的书写规范书写即可   
     引入数据库的表信息 例:表的注释(${table.tableComment})  
     1.数据库的全部表信息:  
