@@ -18,7 +18,7 @@
     2.配置文件
         必须以generatorConfig.properties命名,将文件生成到resource下
     3.在resource目录下生成文件夹,随意命名,用于存放生成所属的ftl模板
-## 第三步创建配置文件
+## 第三步:创建配置文件
     1. 数据库连接
         1.数据库连接
             jdbc.url=jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=UTF-8&useSSL=false
