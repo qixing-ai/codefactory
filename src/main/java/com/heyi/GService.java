@@ -105,7 +105,7 @@ public class GService {
           table.setTableComment(result.getString("table_comment"));
         }
         DatabaseMetaData dbmd = conn.getMetaData();
-        ResultSet rs = dbmd.getColumns(null, "%", tableName, "%");
+        ResultSet rs = dbmd.getColumns(conn.getCatalog(), "%", tableName, "%");
         List<Colum> colums = new ArrayList<>();
         while (rs.next()) {
             colums.add(getcolum(rs));
