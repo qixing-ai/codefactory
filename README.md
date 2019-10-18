@@ -58,7 +58,7 @@
         9. 包名称 ${table.tablePackage}  
         10. 项目路径 ${table.projectPath}  
         11. 项目路径 ${table.savetPath}  
-    数据库表中字段信息 如需获取每个表字段信息 freemarker语法遍历colums即可  
+    2.数据库表中字段信息 如需获取每个表字段信息 freemarker语法遍历colums即可  
         colum 为遍历后命名的每个表字段  
         1. 表注释 ${colum.columComment}  
         2. 数据库数据类型  ${colum.jdbcType}  
