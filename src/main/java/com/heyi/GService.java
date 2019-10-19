@@ -32,7 +32,7 @@ public class GService {
     private String JAVA_PATH = "/src/main/java/";
     private String MAPPER_PATH = "/src/main/resources/mappers";
     private Table table;
-    private Map<String, Object> model = new HashMap<>();
+    private Map<String, Object> model = new HashMap<String, Object>();
 
     public static void main(String[] args) {
         GService cgm = new GService();
@@ -163,10 +163,6 @@ public class GService {
 
     /*5生成文件生成*/
     private void targetFileGenerate(String template) throws Exception {
-        //文件夹
-        String Folder = template.split("/")[0];
-        //文件
-        String file = template.split("/")[1];
         /*生成*/
         configuration.getTemplate(template).getCustomLookupCondition();
         String filepath = System.getProperty("user.dir") + PROJECT_PATH;
@@ -174,6 +170,10 @@ public class GService {
             filepath = filepath + MAPPER_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
         } else {
             if(template.contains("/")){
+                //文件夹
+                String Folder = template.split("/")[0];
+                //文件
+                String file = template.split("/")[1];
                 filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + Folder +"/"+table.getTableNameUpperCamel() + file.replace(".ftl", "");
             }else{
                 filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
