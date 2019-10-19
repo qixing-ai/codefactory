@@ -43,42 +43,42 @@
 ## 第五步:运行生成 
      运行生成代码,根据resource下template模板生成,创建了几份文件 生成几份代码
      如果你的模板外有一个指定生成位置 
-        例如user.java文件要生成到user文件夹下 
-        那就在template创建一个user文件夹 将你的ftl模板放到这个user文件夹下 那生成出来的文件路径就洗 XXXX/user/user.java 
+        例如user.java文件要生成到user下面model文件夹下 
+        那就在template创建一个model文件夹 将你的ftl模板放到这个model文件夹下 那生成出来的文件路径就是 XXXX/user/model/user.java 
      如果你的模板不需要指定生成位置
         那就将你的ftl生成模板全部放到template下即可
-        生成的model,controller,service,dao的文件在一个文件夹内
+        生成的model,controller,service,dao的文件在一个文件夹内,例如 XXXX/user/user.java XXXX/user/userController.java
         生成的mapper文件在resource/mappers文件夹下
 ## 使用参数详解
     书写模板时按照freemarker的书写规范书写即可   
     引入数据库的表信息 例:表的注释(${table.tableComment})  
     1.数据库的全部表信息:  
-        1.${table.dataBase}  数据库
-        2.${table.author}  创建人
-        3.${table.createTime}  创建时间
-        4.${table.tableName}  表名称
-        5.${table.tableNameLower}  表名称全部小写
-        6.${table.tableNameLowerCamel}  表名称首字母小写其余驼峰
-        7.${table.tableNameUpperCamel}  表名称首字母大写其余驼峰
-        8.${table.tableComment}  表注释
-        9.${table.tablePackage}  包名称
-        10.${table.projectPath}  项目路径
-        11.${table.savetPath}  项目路径
+        ${table.dataBase}  数据库
+        ${table.author}  创建人
+        ${table.createTime}  创建时间
+        ${table.tableName}  表名称
+        ${table.tableNameLower}  表名称全部小写
+        ${table.tableNameLowerCamel}  表名称首字母小写其余驼峰
+        ${table.tableNameUpperCamel}  表名称首字母大写其余驼峰
+        ${table.tableComment}  表注释
+        ${table.tablePackage}  包名称
+        ${table.projectPath}  项目路径
+        ${table.savetPath}  项目路径
     2.数据库表中字段信息 如需获取每个表字段信息 freemarker语法遍历colums即可  
         colum 为遍历后命名的每个表字段对象  
-        1.${colum.columComment}  字段注释
-        2.${colum.jdbcType}  数据库数据类型
-        3.${colum.sqlType}  sql类型
-        4.${colum.columName}  字段名称
-        5.${colum.columNameLower}  字段名称全小写不含下划线
-        6.${colum.columNameLowerCamel}  字段名称首字母小写其余驼峰
-        7.${colum.columNameUpperCamel} 字段名称首字母大写其余驼峰
+        ${colum.columComment}  字段注释
+        ${colum.jdbcType}  数据库数据类型
+        ${colum.sqlType}  sql类型
+        ${colum.columName}  字段名称
+        ${colum.columNameLower}  字段名称全小写不含下划线
+        ${colum.columNameLowerCamel}  字段名称首字母小写其余驼峰
+        ${colum.columNameUpperCamel} 字段名称首字母大写其余驼峰
     3.主键信息
         key为主键字段的对象
-        1.${key.columComment}  主键注释
-        2.${key.jdbcType}  数据库数据类型
-        3.${key.sqlType}  sql类型
-        4.${key.columName}  字段名称
-        5.${key.columNameLower}  字段名称全小写不含下划线
-        6.${key.columNameLowerCamel}  字段名称首字母小写其余驼峰
-        7.${key.columNameUpperCamel} 字段名称首字母大写其余驼峰
+        ${key.columComment}  主键注释
+        ${key.jdbcType}  数据库数据类型
+        ${key.sqlType}  sql类型
+        ${key.columName}  字段名称
+        ${key.columNameLower}  字段名称全小写不含下划线
+        ${key.columNameLowerCamel}  字段名称首字母小写其余驼峰
+        ${key.columNameUpperCamel} 字段名称首字母大写其余驼峰
