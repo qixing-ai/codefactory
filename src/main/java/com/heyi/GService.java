@@ -102,9 +102,6 @@ public class GService {
         table.setAuthor(properties.getProperty("author"));
         table.setCreateTime(DateUtil.today());
         table.setDataBase(properties.getProperty("jdbc.database"));
-
-
-
         JDBC_URL = properties.getProperty("jdbc.url");
         JDBC_USERNAME = properties.getProperty("jdbc.username");
         JDBC_PASSWORD = properties.getProperty("jdbc.password");
