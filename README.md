@@ -18,24 +18,24 @@
     2.配置文件
         必须以generatorConfig.properties命名,将文件生成到resource下
     3.在resource目录下生成文件夹,随意命名,用于存放生成所属的ftl模板
-## 第三步:创建配置文件
-    1. 数据库连接
-        1.数据库连接
-            jdbc.url=jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-        2.数据库
-            jdbc.database=database
-        3.用户名
-            jdbc.username=database
-        4.密码    
-            jdbc.password=database
-    2.需要生成的表
-        target.table=user
-    3.生成目录
-         base.package=com.heyi.test.platform
-    4.生成文件用户签名
-         author=zhang
-    5.模板存放文件夹名称
-         template.file=template (你创建的文件夹叫什么名字就填写什么名字)                     
+## 第三步:创建配置文件(generatorConfig.properties)
+    ###数据库连接
+    jdbc.url=jdbc:mysql://192.168.1.121:3306/database?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    ###数据库
+    jdbc.database=database
+    ###数据库用户名
+    jdbc.username=database
+    ###数据库密码
+    jdbc.password=database
+    ###需要生成的表名
+    target.table=user
+    ###生成的主目录
+    base.package=com.heyi.mypro
+    ###签名信息
+    author=name
+    ###配置
+    template.file=template
+                    
 ## 第四步:书写生成代码模板 
    存放代码模板 
     命名规则为后缀 以user为例 model模板为 .java.ftl  生成出的文件为 User.java 
@@ -53,32 +53,32 @@
     书写模板时按照freemarker的书写规范书写即可   
     引入数据库的表信息 例:表的注释(${table.tableComment})  
     1.数据库的全部表信息:  
-        1.数据库 ${table.dataBase}  
-        2.创建人 ${table.author}  
-        3. 创建时间 ${table.createTime}  
-        4. 表名称 ${table.tableName}  
-        5. 表名称全部小写 ${table.tableNameLower}  
-        6. 表名称首字母小写其余驼峰 ${table.tableNameLowerCamel}  
-        7. 表名称首字母大写其余驼峰 ${table.tableNameUpperCamel}  
-        8. 表注释 ${table.tableComment}  
-        9. 包名称 ${table.tablePackage}  
-        10. 项目路径 ${table.projectPath}  
-        11. 项目路径 ${table.savetPath}  
+        1.${table.dataBase}  数据库
+        2.${table.author}  创建人
+        3.${table.createTime}  创建时间
+        4.${table.tableName}  表名称
+        5.${table.tableNameLower}  表名称全部小写
+        6.${table.tableNameLowerCamel}  表名称首字母小写其余驼峰
+        7.${table.tableNameUpperCamel}  表名称首字母大写其余驼峰
+        8.${table.tableComment}  表注释
+        9.${table.tablePackage}  包名称
+        10.${table.projectPath}  项目路径
+        11.${table.savetPath}  项目路径
     2.数据库表中字段信息 如需获取每个表字段信息 freemarker语法遍历colums即可  
         colum 为遍历后命名的每个表字段对象  
-        1. 字段注释 ${colum.columComment}  
-        2. 数据库数据类型  ${colum.jdbcType}  
-        3. sql类型 ${colum.sqlType}  
-        4. 字段名称 ${colum.columName}  
-        5. 字段名称全小写不含下划线   ${colum.columNameLower}  
-        6. 字段名称首字母小写其余驼峰 ${colum.columNameLowerCamel}  
-        7. 字段名称首字母大写其余驼峰 ${colum.columNameUpperCamel} 
+        1.${colum.columComment}  字段注释
+        2.${colum.jdbcType}  数据库数据类型
+        3.${colum.sqlType}  sql类型
+        4.${colum.columName}  字段名称
+        5.${colum.columNameLower}  字段名称全小写不含下划线
+        6.${colum.columNameLowerCamel}  字段名称首字母小写其余驼峰
+        7.${colum.columNameUpperCamel} 字段名称首字母大写其余驼峰
     3.主键信息
         key为主键字段的对象
-        1. 主键注释 ${key.columComment}  
-        2. 数据库数据类型  ${key.jdbcType}  
-        3. sql类型 ${key.sqlType}  
-        4. 字段名称 ${key.columName}  
-        5. 字段名称全小写不含下划线   ${key.columNameLower}  
-        6. 字段名称首字母小写其余驼峰 ${key.columNameLowerCamel}  
-        7. 字段名称首字母大写其余驼峰 ${key.columNameUpperCamel} 
+        1.${key.columComment}  主键注释
+        2.${key.jdbcType}  数据库数据类型
+        3.${key.sqlType}  sql类型
+        4.${key.columName}  字段名称
+        5.${key.columNameLower}  字段名称全小写不含下划线
+        6.${key.columNameLowerCamel}  字段名称首字母小写其余驼峰
+        7.${key.columNameUpperCamel} 字段名称首字母大写其余驼峰
