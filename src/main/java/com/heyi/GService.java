@@ -43,13 +43,51 @@ public class GService {
     public void run() {
         try {
             table = gettableinfo();
-            configuration = new Configuration(Configuration.VERSION_2_3_23);
-            String configPath = ClassLoader.getSystemResource("").getPath() + TEMPLATE_FILE;
-            configuration.setDirectoryForTemplateLoading(new File(configPath));
-            configuration.setDefaultEncoding("UTF-8");
-            configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
-            model.put("table", table);
-            getcoluminfo(table.getTableName());
+            ClassPathResource resource = new ClassPathResource("generatorConfig.properties");
+            Properties properties = new Properties();
+            properties.load(resource.getStream());
+            String tables=properties.getProperty("target.table");
+            List<String> list=new ArrayList();
+            String sql="";
+            if(tables.contains(",")){
+                list=Arrays.asList(tables.split(","));
+            }
+            if(tables.equals("*")){
+                 sql="select table_name from information_schema.tables where table_schema='"+table.getDataBase()+"'";
+            }
+            if(tables.lastIndexOf("*")>0){
+                tables=tables.replace("*","");
+                 sql = "SELECT table_name FROM information_schema.tables WHERE table_schema ='"+table.getDataBase()+"' and table_name like '%"+tables+"%'";
+            }
+            if(tables.contains("*")){
+                Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME,JDBC_PASSWORD);
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet result = ps.executeQuery();
+                while (result.next()) {
+                    list.add(result.getString("table_name"));
+                }
+            }
+            if(list.size()==0){
+                throw new Exception("没有找到相应表");
+            }
+            for(String tablename :list){
+                table.setTableName(tablename);
+                table.setTableNameLowerCamel(toCamel(table.getTableName()));
+                table.setTableNameLower(toLower(table.getTableNameLowerCamel()));
+                table.setTableNameUpperCamel(toUpperFirst(table.getTableNameLowerCamel()));
+                BASE_PACKAGE = properties.getProperty("base.package") + "." + table.getTableNameLower();
+                model.put("basePackage", BASE_PACKAGE);
+                BASE_PACKAGE_PATH = BASE_PACKAGE.replace(".", "/");
+                PROJECT_PATH = properties.getProperty("project.path") == null ? "" : properties.getProperty("project.path");
+                configuration = new Configuration(Configuration.VERSION_2_3_23);
+                String configPath = ClassLoader.getSystemResource("").getPath() + TEMPLATE_FILE;
+                configuration.setDirectoryForTemplateLoading(new File(configPath));
+                configuration.setDefaultEncoding("UTF-8");
+                configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
+                model.put("table", table);
+                getcoluminfo(tablename);
+            }
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -63,16 +101,7 @@ public class GService {
         Table table = new Table();
         table.setAuthor(properties.getProperty("author"));
         table.setCreateTime(DateUtil.today());
-        table.setTableName(properties.getProperty("target.table"));
         table.setDataBase(properties.getProperty("jdbc.database"));
-        table.setTableNameLowerCamel(toCamel(table.getTableName()));
-        table.setTableNameLower(toLower(table.getTableNameLowerCamel()));
-        table.setTableNameUpperCamel(toUpperFirst(table.getTableNameLowerCamel()));
-
-        BASE_PACKAGE = properties.getProperty("base.package") + "." + table.getTableNameLower();
-        model.put("basePackage", BASE_PACKAGE);
-        BASE_PACKAGE_PATH = BASE_PACKAGE.replace(".", "/");
-        PROJECT_PATH = properties.getProperty("project.path") == null ? "" : properties.getProperty("project.path");
         JDBC_URL = properties.getProperty("jdbc.url");
         JDBC_USERNAME = properties.getProperty("jdbc.username");
         JDBC_PASSWORD = properties.getProperty("jdbc.password");
@@ -105,7 +134,7 @@ public class GService {
           table.setTableComment(result.getString("table_comment"));
         }
         DatabaseMetaData dbmd = conn.getMetaData();
-        ResultSet rs = dbmd.getColumns(null, "%", tableName, "%");
+        ResultSet rs = dbmd.getColumns(conn.getCatalog(), "%", tableName, "%");
         List<Colum> colums = new ArrayList<Colum>();
         while (rs.next()) {
             colums.add(getcolum(rs));
@@ -163,10 +192,6 @@ public class GService {
 
     /*5生成文件生成*/
     private void targetFileGenerate(String template) throws Exception {
-        //文件夹
-        String Folder = template.split("/")[0];
-        //文件
-        String file = template.split("/")[1];
         /*生成*/
         configuration.getTemplate(template).getCustomLookupCondition();
         String filepath = System.getProperty("user.dir") + PROJECT_PATH;
@@ -174,6 +199,10 @@ public class GService {
             filepath = filepath + MAPPER_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
         } else {
             if(template.contains("/")){
+                //文件夹
+                String Folder = template.split("/")[0];
+                //文件
+                String file = template.split("/")[1];
                 filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + Folder +"/"+table.getTableNameUpperCamel() + file.replace(".ftl", "");
             }else{
                 filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
