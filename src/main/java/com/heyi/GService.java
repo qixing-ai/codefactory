@@ -68,7 +68,7 @@ public class GService {
                 }
             }
             if(list.size()==0){
-                throw new Exception("没有找到相应表");
+                list.add(tables);
             }
             for(String tablename :list){
                 table.setTableName(tablename);
