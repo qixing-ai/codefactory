@@ -3,7 +3,7 @@
     <dependency>
          <groupId>com.github.heyi-core</groupId>
          <artifactId>generator</artifactId>
-         <version>3.0</version>
+         <version>4.0.1</version>
          <scope>test</scope>
     </dependency>
     scope方式为test,代码不会被打包进去
@@ -39,11 +39,16 @@
 ## 第四步:书写生成代码模板 
    存放代码模板 
     命名规则为后缀 以user为例 model模板为 .java.ftl  生成出的文件为 User.java 
-                    controller模板为 Controller.java.ftl 生成出的文件为 UserController.java
+                    controller模板为 Controller.java.ftl 生成出的文件为 UserController.java               
 ## 第五步:运行生成 
      运行生成代码,根据resource下template模板生成,创建了几份文件 生成几份代码
-     生成的model,controller,service,dao的文件在一个文件夹内
-     生成的mapper文件在resource/mappers文件夹下
+     如果你的模板外有一个指定生成位置 
+        例如user.java文件要生成到user文件夹下 
+        那就在template创建一个user文件夹 将你的ftl模板放到这个user文件夹下 那生成出来的文件路径就洗 XXXX/user/user.java 
+     如果你的模板不需要指定生成位置
+        那就将你的ftl生成模板全部放到template下即可
+        生成的model,controller,service,dao的文件在一个文件夹内
+        生成的mapper文件在resource/mappers文件夹下
 ## 使用参数详解
     书写模板时按照freemarker的书写规范书写即可   
     引入数据库的表信息 例:表的注释(${table.tableComment})  
