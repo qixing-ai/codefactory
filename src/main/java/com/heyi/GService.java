@@ -106,7 +106,7 @@ public class GService {
         }
         DatabaseMetaData dbmd = conn.getMetaData();
         ResultSet rs = dbmd.getColumns(conn.getCatalog(), "%", tableName, "%");
-        List<Colum> colums = new ArrayList<>();
+        List<Colum> colums = new ArrayList<Colum>();
         while (rs.next()) {
             colums.add(getcolum(rs));
         }
@@ -127,11 +127,31 @@ public class GService {
         getFile();
     }
 
+    /**
+     * 获取所有template下的模板路径,有文件夹带文件夹
+     * @param resource
+     * @return
+     */
+    private List<String> returnftlPathList(ClassPathResource resource ){
+        File[] ls = FileUtil.ls(resource.getPath());
+        List<String> list = new ArrayList<String>();
+        for (File l : ls) {
+            if(l.isDirectory()){
+                File[] ls1 = FileUtil.ls(l.getPath());
+                for (File file : ls1) {
+                    list.add(l.getPath().substring(l.getPath().lastIndexOf("\\")+1)+"/"+file.getPath().substring(file.getPath().lastIndexOf("\\")+1));
+                }
+            }else{
+                list.add(l.getPath().substring(l.getPath().lastIndexOf("\\")+1));
+            }
+        }
+        return list;
+    }
     /*4生成File*/
     private void getFile() throws Exception {
         /*所有模板*/
         ClassPathResource resource = new ClassPathResource(TEMPLATE_FILE);
-        List<String> list = FileUtil.listFileNames(resource.getPath());
+        List<String> list = returnftlPathList(resource);
         /*循环生成*/
         for (String filename : list) {
             /*目标文件生成*/
@@ -143,23 +163,32 @@ public class GService {
 
     /*5生成文件生成*/
     private void targetFileGenerate(String template) throws Exception {
+        //文件夹
+        String Folder = template.split("/")[0];
+        //文件
+        String file = template.split("/")[1];
         /*生成*/
         configuration.getTemplate(template).getCustomLookupCondition();
         String filepath = System.getProperty("user.dir") + PROJECT_PATH;
         if (template.contains("Mapper")) {
             filepath = filepath + MAPPER_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
         } else {
-            filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
+            if(template.contains("/")){
+                filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + Folder +"/"+table.getTableNameUpperCamel() + file.replace(".ftl", "");
+            }else{
+                filepath = filepath + JAVA_PATH + BASE_PACKAGE_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
+            }
+
         }
-        File file = new File(filepath);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        File newfile = new File(filepath);
+        if (!newfile.getParentFile().exists()) {
+            newfile.getParentFile().mkdirs();
         }
-        if (file.exists()) {
-            file.delete();//删除文件
+        if (newfile.exists()) {
+            newfile.delete();//删除文件
         }
         /*先生成后转移*/
-        configuration.getTemplate(template).process(model, new FileWriter(file));
+        configuration.getTemplate(template).process(model, new FileWriter(newfile));
     }
 
 
