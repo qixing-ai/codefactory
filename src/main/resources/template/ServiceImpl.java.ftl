@@ -43,7 +43,7 @@ public class ${table.tableNameUpperCamel}ServiceImpl implements ${table.tableNam
     @Override
     public ${table.tableNameUpperCamel} add(${table.tableNameUpperCamel} ${table.tableNameLowerCamel}){
         this.dao.add(${table.tableNameLowerCamel});
-        return  this.getById((${table.tableNameLowerCamel}) .get${table.tableNameUpperCamel}Id());
+        return  this.getById((${table.tableNameLowerCamel}).get${'${key.columName}'?cap_first}());
     }
 
 
@@ -68,7 +68,7 @@ public class ${table.tableNameUpperCamel}ServiceImpl implements ${table.tableNam
     @Override
     public ${table.tableNameUpperCamel} update(${table.tableNameUpperCamel} ${table.tableNameLowerCamel}){
         this.dao.update(${table.tableNameLowerCamel});
-        return this.getById(${table.tableNameLowerCamel} .get${table.tableNameUpperCamel}Id());
+        return this.getById(${table.tableNameLowerCamel} .get${'${key.columName}'?cap_first}());
     }
 
     /**
