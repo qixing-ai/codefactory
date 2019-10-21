@@ -3,7 +3,7 @@
     <dependency>
          <groupId>com.github.heyi-core</groupId>
          <artifactId>generator</artifactId>
-         <version>4.0.1</version>
+         <version>4.1</version>
          <scope>test</scope>
     </dependency>
     scope方式为test,代码不会被打包进去
@@ -28,6 +28,10 @@
     ###数据库密码
     jdbc.password=database
     ###需要生成的表名
+    (1.如果要写所有表 target.table=*
+     2.如果要写以us开头的所有表   target.table=us*
+     3.如果要生成多张表  target.table=user,role
+    )
     target.table=user
     ###生成的主目录
     base.package=com.heyi.mypro
