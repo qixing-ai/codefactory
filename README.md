@@ -35,6 +35,8 @@
     target.table=user
     ###生成的主目录
     base.package=com.heyi.mypro
+    ###mapper文件生成主目录
+    mappers.file= /src/main/resources/mappers
     ###签名信息
     author=name
     ###配置
@@ -53,6 +55,12 @@
         那就将你的ftl生成模板全部放到template下即可
         生成的model,controller,service,dao的文件在一个文件夹内,例如 XXXX/user/user.java XXXX/user/userController.java
         生成的mapper文件在resource/mappers文件夹下
+     配置文件mappers.file是你mapper文件的主目录
+        如果你设定了指定mapper的生成位置
+            例如你要讲user的mapper文件生成到user文件夹下,那就创建一个user文件夹,将mapper的ftl模板放到user文件夹下,
+            那么他的生成文件路径为 mappers.file/user/userMapper.xml
+        如果你不指定生成位置
+            那就生成的所有mapper文件都是在mapper.file路径下
 ## 使用参数详解
     书写模板时按照freemarker的书写规范书写即可   
     引入数据库的表信息 例:表的注释(${table.tableComment})  
