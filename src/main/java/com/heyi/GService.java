@@ -30,7 +30,7 @@ public class GService {
     private String BASE_PACKAGE_PATH;
     private String PROJECT_PATH;
     private String JAVA_PATH = "/src/main/java/";
-    private String MAPPER_PATH = "/src/main/resources/mappers";
+    private String MAPPER_PATH ;
     private Table table;
     private Map<String, Object> model = new HashMap<String, Object>();
 
@@ -47,6 +47,7 @@ public class GService {
             Properties properties = new Properties();
             properties.load(resource.getStream());
             String tables=properties.getProperty("target.table");
+            MAPPER_PATH = properties.getProperty("mappers.file");
             List<String> list=new ArrayList();
             String sql="";
             if(tables.contains(",")){
@@ -196,7 +197,15 @@ public class GService {
         configuration.getTemplate(template).getCustomLookupCondition();
         String filepath = System.getProperty("user.dir") + PROJECT_PATH;
         if (template.contains("Mapper")) {
-            filepath = filepath + MAPPER_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
+            if(template.contains("/")){
+                //文件夹
+                String Folder = template.split("/")[0];
+                //文件
+                String file = template.split("/")[1];
+                filepath = filepath + MAPPER_PATH + "/" +Folder+ "/" + table.getTableNameUpperCamel() + file.replace(".ftl", "");
+            }else{
+                filepath = filepath + MAPPER_PATH + "/" + table.getTableNameUpperCamel() + template.replace(".ftl", "");
+            }
         } else {
             if(template.contains("/")){
                 //文件夹
