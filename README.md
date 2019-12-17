@@ -41,6 +41,9 @@
     author=name
     ###配置
     template.file=template
+    ###mapper配置
+    mappers.file=/src/main/resources/mappers
+
                     
 ## 第四步:书写生成代码模板 
    存放代码模板 
