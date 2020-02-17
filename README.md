@@ -3,7 +3,7 @@
     <dependency>
          <groupId>com.github.heyi-core</groupId>
          <artifactId>generator</artifactId>
-         <version>4.1</version>
+         <version>4.1.2</version>
          <scope>test</scope>
     </dependency>
     scope方式为test,代码不会被打包进去
