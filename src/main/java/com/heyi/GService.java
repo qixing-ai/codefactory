@@ -172,7 +172,7 @@ public class GService {
                     list.add(l.getPath().substring(l.getPath().lastIndexOf("\\")+1)+"/"+file.getPath().substring(file.getPath().lastIndexOf("\\")+1));
                 }
             }else{
-                list.add(l.getPath().substring(l.getPath().lastIndexOf("\\")+1));
+                list.add(l.getName());
             }
         }
         return list;
